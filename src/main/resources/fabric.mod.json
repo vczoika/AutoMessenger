@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "automessenger",
+	"version": "${version}",
+	"name": "AutoMessenger",
+	"description": "A simple mod that sends messages every X ticks!",
+	"authors": [
+		"vczoika"
+	],
+	"contact": {
+		"homepage": "https://github.com/vczoika",
+		"sources": "https://github.com/vczoika/AutoMessenger"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/automessenger/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "vczoika.automessenger.AutoMessenger"
+		]
+	},
+	"mixins": [
+		"automessenger.mixins.json"
+	],
+	"depends": {
+		"fabricloader": " ",
+		"minecraft": "~1.19.3",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
