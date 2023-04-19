@@ -2,7 +2,7 @@
 ### What does it do?  
 A simple server-side mod that allows the server to send custom messages every X ticks. Requires Fabric API.
 - [Modrinth Mod page](https://modrinth.com/mod/automessenger)
-- [CurseForge Mod page]https://www.curseforge.com/minecraft/mc-mods/automessenger-fabric)
+- [CurseForge Mod page](https://www.curseforge.com/minecraft/mc-mods/automessenger-fabric)
 
 
 
