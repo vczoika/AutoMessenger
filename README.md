@@ -6,7 +6,10 @@ A simple server-side mod that allows the server to send custom messages every X 
 
 
 
-
+#### Known bugs and stuff
+1. No Cyrillic Alphabet support (probably other types are gonna break too)
+2. I made with Windows support in mind, so i made a test in linux and boom! a directory '\\config' was created while everything else was '/config' (im so stupid)
+3. probably some other stuff as well because it was my first mod and im bad at coding
 
 
 Currently works for 1.19.3, I don't know about porting because this is my first mod, but I guess I could try porting to 1.20 as soon as Fabric gets updated.  
