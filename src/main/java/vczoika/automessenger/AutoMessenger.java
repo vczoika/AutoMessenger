@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Properties;
 public class AutoMessenger implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("automessenger");
-    private static final String CONFIGFILE_PATH = ".\\config\\automessenger.properties";
+    private static final String CONFIGFILE_PATH = ".\\config\\automessenger.properties"; // wtf was i thinking? what if u are using unix?
     private static final int DEFAULT_MESSAGE_INTERVAL = 300; // Adjust the interval as desired
     private static int messageInterval = DEFAULT_MESSAGE_INTERVAL; // Interval for sending messages
 
