@@ -1,4 +1,6 @@
 # AutoMessenger  
+<img src="https://cdn.modrinth.com/data/fdE5HuDR/072ed22949d516675e60b07ee1a828df72924d0e.png">  
+
 ### What does it do?  
 A simple server-side mod that allows the server to send custom messages every X ticks. Requires Fabric API.
 - [Modrinth Mod page](https://modrinth.com/mod/automessenger)
