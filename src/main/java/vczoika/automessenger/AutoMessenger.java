@@ -9,9 +9,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.Properties;
 public class AutoMessenger implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("automessenger");
-    private static final String CONFIGFILE_PATH = ".\\config\\automessenger.properties"; // wtf was i thinking? what if u are using unix?
+    private static final String CONFIGFILE_PATH = Paths.get("", "config", "automessenger.properties").toString();
+
     private static final int DEFAULT_MESSAGE_INTERVAL = 300; // Adjust the interval as desired
     private static int messageInterval = DEFAULT_MESSAGE_INTERVAL; // Interval for sending messages
 
@@ -75,7 +76,7 @@ public class AutoMessenger implements ModInitializer {
                 myWriter.write("# Please check if the messages are in ascending order, otherwise it won't work. Also don't skip any number :c \n");
                 myWriter.write("# Change the messages below:\n");
                 myWriter.write("\n");
-                myWriter.write("message1=<gr:#11dddd:#cccccc>Hello! Thanks a lot for dowloading my first mod! It means a lot!\n");
+                myWriter.write("message1=<gr:#11dddd:#cccccc>Hello! Thanks a lot for downloading my first mod! It means a lot!\n");
                 myWriter.write("\n");
                 myWriter.write("message2=<gold>If you need any help please send me a message! <gray><url:'https://discord.gg/ZdEdE3eGes'><underlined>Discord<reset> (hey, it's clickable!)\n");
                 myWriter.write("\n");
@@ -85,10 +86,10 @@ public class AutoMessenger implements ModInitializer {
                 myWriter.write("\n");
                 myWriter.write("# Uncomment the following lines if you wish to add more messages (You can add as much as you want!)\n");
                 myWriter.write("#message5=change me for something...\n");
-                myWriter.write("#message6=something...\n");
-                myWriter.write("#message7=something else...\n");
+                myWriter.write("#message6=ㄱ ㄲ ㅋ ㆁ ㄷ ㄸ ㅌ ㄴ ㅂ ㅃ ㅍ ㅁ ㅈ ㅉ ㅊ ㅅ ㅆ ㆆ ㅎ ㆅ ㅇ ㄹ ㅿ\n");
+                myWriter.write("#message7=Плеасе буы ме а монстер энерги дринк\n");
                 myWriter.write("#message8=donate something for me ;-; (anything is welcome, shitty economy here)\n");
-                myWriter.write("#message9=1 usd = 5 brl (1 can of Monster = 10 BRL) o.o\n");
+                myWriter.write("#message9=1 usd = 5 BRL (1 can of Monster = 10 BRL) o.o\n");
                 myWriter.close();
                 LOGGER.info("[AutoMessenger]: Successfully created the default configuration file.");
             } catch (IOException e) {
@@ -100,8 +101,9 @@ public class AutoMessenger implements ModInitializer {
 
     private static void loadConfig() {
         Properties properties = new Properties();
-        try (FileInputStream fileInputStream = new FileInputStream(CONFIGFILE_PATH)) {
-            properties.load(fileInputStream);
+        try (InputStream input = new FileInputStream((CONFIGFILE_PATH));
+             InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) {
+            properties.load(reader);
         } catch (IOException e) {
             LOGGER.error("[AutoMessenger]: Failed to load configuration file: " + e.getMessage());
             return;
@@ -138,17 +140,19 @@ public class AutoMessenger implements ModInitializer {
         }
     }
 
+    // Adds the command to reload the mod
     private static void registerCommand() {
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated, server) -> {
             dispatcher.register(CommandManager.literal("automessenger")
                     .then(CommandManager.literal("reload")
+                            .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(4)) //Requires OP
                             .executes(context -> reloadConfig(context.getSource()))));
         });
     }
     private static int reloadConfig(ServerCommandSource source) {
         try {
             loadConfig();
-            source.sendFeedback(() -> Text.of("AutoMessenger configuration reloaded."), false);
+            source.sendFeedback(() -> Text.of("AutoMessenger configuration reloaded."), true);
         } catch (Exception e) {
             source.sendError(Text.of("An error occurred while reloading the AutoMessenger configuration."));
             LOGGER.error("[AutoMessenger]: Error reloading configuration: " + e.getMessage());
